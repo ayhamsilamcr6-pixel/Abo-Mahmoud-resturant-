@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> مطعم ابو محمود </title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f7f7f7;
+  text-align:center;
+}
+
+header {
+  background:#e63946;
+  color:white;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+}
+
+nav {
+  background:#f1f1f1;
+  padding:10px;
+}
+
+nav a {
+  margin: 0 15px;
+  color:#e63946;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+nav a:hover {
+  text-decoration:underline;
+}
+
+.menu {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  padding:20px;
+}
+
+.card {
+  background:white;
+  width:220px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  overflow:hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
+
+.card h3 {
+  margin:10px 0;
+}
+
+.price {
+  color:#e63946;
+  font-weight:bold;
+}
+
+button {
+  background:#e63946;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  margin-bottom:15px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#c1121f;
+}
+
+#cart {
+  background:white;
+  width:350px;
+  margin:30px auto;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  text-align:left;
+}
+
+#cart h2 {
+  text-align:center;
+}
+
+ul {
+  list-style:none;
+  padding:0;
+}
+
+.orderBtn {
+  background:#25D366;
+  width:100%;
+  padding:12px;
+  font-size:16px;
+}
+
+.orderBtn:hover {
+  background:#128C7E;
+}
+
+footer {
+  background:#e63946;
+  color:white;
+  padding:15px;
+  margin-top:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+مطعم اب محمود 
+</header>
+
+<nav>
+<a href="#menu">المنيو</a>
+<a href="#cart">سلة الطلب</a>
+</nav>
+
+<section id="menu">
+<h2>المنيو</h2>
+
+<div class="menu">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1550547660-d9450f859349" alt="برغر">
+<h3>برغر</h3>
+<p class="price">5$</p>
+<button onclick="addToCart('برغر',5)">اطلب</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e" alt="بيتزا">
+<h3>بيتزا</h3>
+<p class="price">8$</p>
+<button onclick="addToCart('بيتزا',8)">اطلب</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1554866585-cd94860890b7" alt="كولا">
+<h3>كولا</h3>
+<p class="price">2$</p>
+<button onclick="addToCart('كولا',2)">اطلب</button>
+</div>
+
+</div>
+</section>
+
+<section id="cart">
+<div id="cartBox">
+<h2>سلة الطلب</h2>
+<ul id="cartItems"></ul>
+<p>المجموع: <span id="total">0</span>$</p>
+<button class="orderBtn" onclick="sendOrder()">إرسال الطلب عبر واتساب</button>
+</div>
+</section>
+
+<footer>
+جميع الحقوق محفوظة &copy; 2026
+</footer>
+
+<script>
+let cart = []
+let total = 0
+
+function addToCart(name,price){
+  cart.push(name)
+  let li = document.createElement("li")
+  li.innerText = name + " - " + price + "$"
+  document.getElementById("cartItems").appendChild(li)
+  total += price
+  document.getElementById("total").innerText = total
+}
+
+function sendOrder(){
+  if(cart.length === 0){
+    alert("سلة الطلب فارغة!")
+    return
+  }
+  let message = "مرحبا اريد طلب: " + cart.join(", ") + " المجموع: " + total + "$"
+  let phone = "1234567890" // ضع رقم المطعم هنا
+  let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message)
+  window.open(url)
+}
+</script>
+
+</body>
+</html>
